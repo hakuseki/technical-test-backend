@@ -1,0 +1,17 @@
+###
+# @name Refund
+#
+POST https://sandbox.playtomic.io/v1/stripe-simulator/payments/68674906-db80-4443-87cc-f1f3e53c4ae4/refunds
+
+### Send POST request with json body
+# @name Charge
+#
+POST https://sandbox.playtomic.io/v1/stripe-simulator/charges
+Content-Type: application/json
+
+{
+  "credit_card": "1234567890",
+  "amount": "123.456"
+}
+
+###

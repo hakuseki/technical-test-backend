@@ -1,7 +1,6 @@
 package com.playtomic.tests.wallet.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,7 @@ import java.net.URI;
 
 /**
  * Handles the communication with Stripe.
- *
+ * <p>
  * A real implementation would call to String using their API/SDK.
  * This dummy implementation throws an error when trying to charge less than 10€.
  */
@@ -23,44 +22,44 @@ import java.net.URI;
 public class StripeService {
 
     @NonNull
-    private URI chargesUri;
+    private final URI chargesUri;
 
     @NonNull
-    private URI refundsUri;
+    private final URI refundsUri;
 
     @NonNull
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-    public StripeService(@Value("${stripe.simulator.charges-uri}") @NonNull URI chargesUri,
-                         @Value("${stripe.simulator.refunds-uri}") @NonNull URI refundsUri,
-                         @NonNull RestTemplateBuilder restTemplateBuilder) {
+    public StripeService(@Value("${stripe.simulator.charges-uri}") @NonNull final URI chargesUri,
+                         @Value("${stripe.simulator.refunds-uri}") @NonNull final URI refundsUri,
+                         @NonNull final RestTemplateBuilder restTemplateBuilder) {
         this.chargesUri = chargesUri;
         this.refundsUri = refundsUri;
         this.restTemplate =
                 restTemplateBuilder
-                .errorHandler(new StripeRestTemplateResponseErrorHandler())
-                .build();
+                        .errorHandler(new StripeRestTemplateResponseErrorHandler())
+                        .build();
     }
 
     /**
      * Charges money in the credit card.
-     *
+     * <p>
      * Ignore the fact that no CVC or expiration date are provided.
      *
      * @param creditCardNumber The number of the credit card
-     * @param amount The amount that will be charged.
-     *
+     * @param amount           The amount that will be charged.
      * @throws StripeServiceException
      */
-    public Payment charge(@NonNull String creditCardNumber, @NonNull BigDecimal amount) throws StripeServiceException {
-        ChargeRequest body = new ChargeRequest(creditCardNumber, amount);
+    public Payment charge(@NonNull final String creditCardNumber, @NonNull final BigDecimal amount) throws
+                                                                                                    StripeServiceException {
+        final ChargeRequest body = new ChargeRequest(creditCardNumber, amount);
         return restTemplate.postForObject(chargesUri, body, Payment.class);
     }
 
     /**
      * Refunds the specified payment.
      */
-    public void refund(@NonNull String paymentId) throws StripeServiceException {
+    public void refund(@NonNull final String paymentId) throws StripeServiceException {
         // Object.class because we don't read the body here.
         restTemplate.postForEntity(chargesUri.toString(), null, Object.class, paymentId);
     }

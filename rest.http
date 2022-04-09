@@ -1,0 +1,7 @@
+### Get a Wallet
+POST {{host}}/wallet
+Content-Type: application/json
+
+{
+  "walletId": "516beebc-6c01-4794-af53-08b4793c5ed7"
+}
