@@ -22,9 +22,7 @@ public class WalletRestRoute extends EndpointRouteBuilder {
         restConfiguration()
                 .component("servlet")
                 .bindingMode(RestBindingMode.json)
-                .dataFormatProperty("prettyPrint", "true")
-                .apiContextPath("/api")
-                .apiProperty("cors", "true");
+                .dataFormatProperty("prettyPrint", "true");
 
         rest("/wallet")
                 .consumes("application/json")

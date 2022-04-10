@@ -1,13 +1,19 @@
-spring.profiles.active: develop
+camel:
+  springboot:
+    name: Wallet
+    stream-caching-enabled: true
+    stream-caching-statistics-enabled: true
+  servlet:
+    mapping:
+      context-path: /*
 server:
   port: 8090
----
 spring:
+  profiles:
+    active: develop
   jpa:
     show_sql: false
     database: H2
-    hibernate:
-      ddl-auto: none
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE
     initialize: false
@@ -15,49 +21,3 @@ stripe:
   simulator:
     charges-uri: https://sandbox.playtomic.io/v1/stripe-simulator/charges
     refunds-uri: https://sandbox.playtomic.io/v1/stripe-simulator/payments/{payment_id}/refunds
----
-spring:
-  jpa:
-    show_sql: false
-    database: H2
-    hibernate:
-      ddl-auto: none
-  datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE
-    initialize: false
-stripe:
-  simulator:
-    charges-uri: http://localhost:9999
-    refunds-uri: http://localhost:9999
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    camelroutecontroller:
-      enabled: true
-    metrics:
-      enabled: true
-    health:
-      show-details: always
-    conditions:
-      enabled: true
-    camelroutes:
-      enabled: true
-      read-only: false
-    scheduledtasks:
-      enabled: true
-camel:
-  springboot:
-    name: Wallet
-    jmx-enabled: true
-    stream-caching-enabled: true
-    stream-caching-statistics-enabled: true
-  health:
-    enabled: true
-    exposure-level: full
-  servlet:
-    mapping:
-      context-path: /*

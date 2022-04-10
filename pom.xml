@@ -78,6 +78,7 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
+
         <!-- Start Camel -->
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
@@ -120,6 +121,10 @@
             <artifactId>camel-jpa-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-jdbc-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-management</artifactId>
         </dependency>
@@ -134,6 +139,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>

@@ -1,6 +1,7 @@
 package com.playtomic.tests.wallet.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 //tag::Wallet[]
+
 /**
  * The class Wallet
  *
@@ -32,21 +36,23 @@ public class Wallet implements Serializable {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
     long id;
 
     @Column(name = "wallet_id")
+    @JsonProperty
     String walletId;
 
     @Column
+    @JsonProperty
     BigDecimal balance;
 
-//    @Column(columnDefinition = "TIMESTAMP")
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-//    LocalDateTime created;
-//
-//    @Column(columnDefinition = "TIMESTAMP")
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-//    LocalDateTime updated;
+    @Transient
+    @JsonProperty
+    Timestamp created;
 
+    @Transient
+    @JsonProperty
+    Timestamp updated;
 }
 //end::Wallet[]
