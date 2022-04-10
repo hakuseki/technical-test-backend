@@ -1,7 +1,7 @@
 ###
 # @name Refund
 #
-POST https://sandbox.playtomic.io/v1/stripe-simulator/payments/68674906-db80-4443-87cc-f1f3e53c4ae4/refunds
+POST https://sandbox.playtomic.io/v1/stripe-simulator/payments/256f6642-e866-453c-84b6-4d295428f32f/refunds
 
 ### Send POST request with json body
 # @name Charge

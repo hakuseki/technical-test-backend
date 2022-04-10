@@ -30,6 +30,13 @@ public class StripeService {
     @NonNull
     private final RestTemplate restTemplate;
 
+    /**
+     * Instantiates a new Stripe service.
+     *
+     * @param chargesUri          the charges uri
+     * @param refundsUri          the refunds uri
+     * @param restTemplateBuilder the rest template builder
+     */
     public StripeService(@Value("${stripe.simulator.charges-uri}") @NonNull final URI chargesUri,
                          @Value("${stripe.simulator.refunds-uri}") @NonNull final URI refundsUri,
                          @NonNull final RestTemplateBuilder restTemplateBuilder) {
@@ -48,7 +55,8 @@ public class StripeService {
      *
      * @param creditCardNumber The number of the credit card
      * @param amount           The amount that will be charged.
-     * @throws StripeServiceException
+     * @return the payment
+     * @throws StripeServiceException the stripe service exception
      */
     public Payment charge(@NonNull final String creditCardNumber, @NonNull final BigDecimal amount) throws
                                                                                                     StripeServiceException {
@@ -58,6 +66,9 @@ public class StripeService {
 
     /**
      * Refunds the specified payment.
+     *
+     * @param paymentId the payment id
+     * @throws StripeServiceException the stripe service exception
      */
     public void refund(@NonNull final String paymentId) throws StripeServiceException {
         // Object.class because we don't read the body here.
@@ -67,10 +78,16 @@ public class StripeService {
     @AllArgsConstructor
     private static class ChargeRequest {
 
+        /**
+         * The Credit card number.
+         */
         @NonNull
         @JsonProperty("credit_card")
         String creditCardNumber;
 
+        /**
+         * The Amount.
+         */
         @NonNull
         @JsonProperty("amount")
         BigDecimal amount;

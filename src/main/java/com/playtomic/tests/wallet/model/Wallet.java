@@ -33,24 +33,39 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 public class Wallet implements Serializable {
+    /**
+     * The Id.
+     */
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
     long id;
 
+    /**
+     * The Wallet id.
+     */
     @Column(name = "wallet_id")
     @JsonProperty
     String walletId;
 
+    /**
+     * The Balance.
+     */
     @Column
     @JsonProperty
     BigDecimal balance;
 
+    /**
+     * The Created.
+     */
     @Transient
     @JsonProperty
     Timestamp created;
 
+    /**
+     * The Updated.
+     */
     @Transient
     @JsonProperty
     Timestamp updated;

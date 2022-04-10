@@ -1,7 +1,27 @@
 ### Get a Wallet
+# @name GetWallet
 POST {{host}}/wallet
 Content-Type: application/json
 
 {
   "walletId": "516beebc-6c01-4794-af53-08b4793c5ed7"
 }
+
+### Topup a wallet
+# @name WalletTopup
+#
+POST {{host}}/wallet/topup
+Content-Type: application/json
+
+{
+  "walletId": "516beebc-6c01-4794-af53-08b4793c5ed7",
+  "amount": 123,
+  "cardNumber": "1234567890123"
+}
+
+### Show api
+# @name api
+#
+GET {{host}}/api
+
+###
