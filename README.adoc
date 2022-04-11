@@ -15,7 +15,7 @@ ifdef::env-github[]
 :caution-caption: :fire:
 :warning-caption: :warning:
 :imagesdir: ./images
-:sourcedir: ./src/main/
+:sourcedir: https://raw.githubusercontent.com/hakuseki/technical-test-backend/camel/src/main/
 endif::[]
 
 My explanation of my solution on your technical backend test.
