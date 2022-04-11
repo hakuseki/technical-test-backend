@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 //tag::WalletRestRoute[]
 
 /**
- * The class WallterRoute
+ * The class WalletRestRoute
  *
  * @author maw, (c) Compliance Solutions Strategies, 2022-04-08
  * @version 1.0
@@ -21,11 +21,11 @@ import org.springframework.stereotype.Component;
 public class WalletRestRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-        restConfiguration()
+        restConfiguration() //<.>
                 .component("servlet")
                 .bindingMode(RestBindingMode.json)
                 .dataFormatProperty("prettyPrint", "true")
-                .apiContextPath("/api")
+                .apiContextPath("/api") //<.>
                 .apiProperty("api.title", "Wallet Service")
                 .apiProperty("api.description", "API for querying wallet and adding funds")
                 .apiProperty("api.version", "1.0.0")
@@ -34,30 +34,22 @@ public class WalletRestRoute extends RouteBuilder {
                 .apiProperty("api.license.name", "Copyright Wally Services")
                 .apiProperty("cors", "true");
 
-        rest("/wallet")
+        rest("/wallet") //<.>
                 .consumes("application/json")
                 .produces("application/json")
                 .description("REST-WALLET", "This is a Wallet service", "en")
-                .post()
+
+                .post() //<.>
                 .type(WalletRequest.class)
                 .outType(Wallet.class)
-//                .responseMessage()
-//                .code(200)
-//                .message("All records successfully returned")
-//                .endResponseMessage()
                 .to("direct:wallet")
 
-                .post("/topup")
+                .post("/topup") //<.>
                 .id("WALLET-TOPUP")
                 .description("REST-WALLET-TOPUP", "Adding funds to the wallet using a credit card", "en")
                 .type(WalletTopupRequest.class)
                 .outType(Wallet.class)
-//                .responseMessage()
-//                .code(200)
-//                .message("Wallet successfully returned")
-//                .endResponseMessage()
                 .to("direct:wallet-topup");
-
     }
 }
 //end::WalletRestRoute[]

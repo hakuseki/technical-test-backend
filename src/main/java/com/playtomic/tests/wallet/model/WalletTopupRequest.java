@@ -1,5 +1,4 @@
 package com.playtomic.tests.wallet.model;
-//tag::TopupRequest[]
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +7,7 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 
+//tag::WalletTopupRequest[]
 /**
  * The class WalletTopupRequest
  *
@@ -32,4 +32,4 @@ public class WalletTopupRequest {
      */
     private String walletId;
 }
-//end::TopupRequest[]
+//end::WalletTopupRequest[]

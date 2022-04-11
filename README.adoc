@@ -1,0 +1,105 @@
+= Solution explanation
+Mikael Andersso Wigander <mikael.andersson.wigander@pm.me>
+3.0, July 29, 2022: AsciiDoc article template
+:icons: font
+:experimental:
+:autofit-options:
+:imagesdir: ./images
+:sourcedir: src/main/
+:source-highlighter: coderay
+
+My explanation of my solution on your technical test.
+
+== Introduction
+
+My solution is built using a framework called *Apache Camel* (https://camel.apache.org). +
+It is based on the Spring Boot template provided, but I decided to use my preferred framework.
+
+This solution everything is based on communication between endpoints; a call to a REST endpoint with a payload that
+then queries a database and returns data to the caller, or calling other REST services.
+
+I have made the solution light, it could have more error handlers.
+
+Null checks as conditions for further processing is also not _production material_, but this is just a PoC.
+
+For an explaination of the requests, please view the file `rest.http`.
+[source]
+.rest.http
+----
+include::rest.http[]
+----
+
+=== Wallet service
+
+This solution is based on a REST interface where a request is sent to an endpoint,  this called `/wallet`.
+
+The request is defined and starts in the file `WalletRestRoute.java`.
+
+[source,java,linenums]
+.WalletRestRoute.java
+----
+include::{sourcedir}/java/com/playtomic/tests/wallet/routes/WalletRestRoute.java[tags=WalletRestRoute]
+----
+<.> This is the configuration of the routing information for the REST.
+<.> Here's the Swagger api documentation part.
+<.> The root of the context
+<.> *Wallet service* is using a `POST` all over to disclose any information in URL's. It accepts a structure based on
+the `WalletRequest.class` and outputs data in the form of `Wallet.class`, but as json. The call continues the to
+`("direct:wallet")` in class `WalletRoutes.java`
+<.> This is the _Topup_ endpoint, built in the same manner.
+
+So the request is processed as a `POST` and then transferred to the `direct` endpoint. In the request is a payload of
+a `json` structure which is sent along to the next endpoint.
+
+[source,java,linenums]
+.WalletRoutes.java
+----
+include::{sourcedir}java/com/playtomic/tests/wallet/routes/WalletRoutes.java[tags=wallet]
+----
+<.> The payload is processed as a `WalletRequest` and the wallet ID is set as a header.
+<.> The payload/body is set to the SQL we'd like to be executed.
+<.> The `JDBC` component executes the SQL and returns zero or one record and if a record is found it will be of type
+`Wallet.class`.
+
+[source,java,linenums]
+.Wallet.java
+----
+include::{sourcedir}/java/com/playtomic/tests/wallet/model/Wallet.java[tags=Wallet]
+----
+
+<<<
+
+=== Wallet Topup service
+
+This service is a little more complex and not that straight forward as the Wallet service.
+
+This solution is based on a REST interface where a request is sent to an endpoint,  this called `/wallet/topup`.
+
+
+Here we have more steps to control and process.
+
+. We have a call from a REST endpoint with a payload of a Wallet ID, an amount and a credit card number.
+. We need to retrieve the Wallet for the provided ID.
+. We need to use the Stripe service to charge the card given amount.
+. Update the wallet with the new amount.
+
+[source,java,linenums]
+.WalletRoutes.java
+----
+include::{sourcedir}java/com/playtomic/tests/wallet/routes/WalletRoutes.java[tags=wallet-topup]
+----
+<.> Incoming payload is processed to retrieve the three parts.
+<.> Since we already have a route for getting the Wallet we use it.
+<.> We store the Wallet entity as a header for further use later.
+<.> The Stripe service is called as is, using a bean with arguments. This is to show that we can use _normal_ POJO
+and services as well.
+<.> We process the returning `Payment` and setting the new amount on the `Wallet` entity.
+<.> We then sends this to the `JPA` component with an update request and the data is persisted.
+
+
+[source,java,linenums]
+.WalletTopupRequest.java
+----
+include::{sourcedir}/java/com/playtomic/tests/wallet/model/WalletTopupRequest.java[tags=WalletTopupRequest]
+----
+

@@ -37,10 +37,11 @@ public class WalletRoutes extends EndpointRouteBuilder {
                 .log("${body}")
                 .end();
 
+        //tag::wallet[]
         from(direct("wallet"))
                 .routeId("WALLET-ROUTE")
                 .description("This is a wallet route")
-                .process(exchange -> {
+                .process(exchange -> { //<.>
                     final Message in = exchange.getIn();
                     final WalletRequest walletRequest = in.getBody(WalletRequest.class);
 
@@ -49,22 +50,19 @@ public class WalletRoutes extends EndpointRouteBuilder {
                 })
                 .choice()
                 .when(body().isNotNull())
-                .process(exchange -> {
-                    final Object body = exchange.getIn()
-                                                .getBody(Object.class);
-                })
-
-                .setBody(simple("select * from wallet where wallet_id = :?walletId"))
-                .toD(jdbc("default").outputClass(Wallet.class.getName())
+                .setBody(simple("select * from wallet where wallet_id = :?walletId")) //<.>
+                .toD(jdbc("default").outputClass(Wallet.class.getName()) //<.>
                                     .outputType(JdbcOutputType.SelectOne)
                                     .useHeadersAsParameters(true))
                 .log("${body}")
                 .end();
+        //end::wallet[]
 
+        //tag::wallet-topup[]
         from(direct("wallet-topup"))
                 .routeId("WALLET_TOPUP")
                 .description("Topup a wallet with funds")
-                .process(exchange -> {
+                .process(exchange -> { //<.>
                     final Message in = exchange.getIn();
                     final WalletTopupRequest walletTopupRequest = in.getBody(WalletTopupRequest.class);
                     final Optional<String> walletIdOpt =
@@ -85,17 +83,17 @@ public class WalletRoutes extends EndpointRouteBuilder {
                 })
                 .choice()
                 .when(body().isNotNull())
-                .to(direct("wallet"))
+                .to(direct("wallet")) //<.>
                 .end()
                 .choice()
                 .when(body().isNotNull())
-                .setHeader("wallet", simple("${body}"))
-                .bean(StripeService.class, "charge(${header.cardNumber}, ${header.topUpAmount})")
+                .setHeader("wallet", simple("${body}")) //<.>
+                .bean(StripeService.class, "charge(${header.cardNumber}, ${header.topUpAmount})") //<.>
                 .end()
                 .choice()
                 .when(body().isNotNull())
                 .log("${body}")
-                .process(exchange -> {
+                .process(exchange -> { //<.>
                     final Message in = exchange.getIn();
                     final Payment payment = in.getBody(Payment.class);
                     final Wallet wallet = in.getHeader("wallet", Wallet.class);
@@ -103,10 +101,10 @@ public class WalletRoutes extends EndpointRouteBuilder {
                                             .add(payment.getAmount()));
                     in.setBody(wallet, Wallet.class);
                 })
-                .toD(jpa(Wallet.class.getName()).useExecuteUpdate(true))
+                .toD(jpa(Wallet.class.getName()).useExecuteUpdate(true)) //<.>
                 .log("${body}")
                 .end();
-//                .to(mock("whatever"));
+        //end::wallet-topup[]
     }
 }
 //end::WalletRoutes[]
