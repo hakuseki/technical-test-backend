@@ -27,7 +27,7 @@ It is based on the Spring Boot template provided, but I decided to use my prefer
 This solution everything is based on communication between endpoints; a call to a REST endpoint with a payload that
 then queries a database and returns data to the caller, or calling other REST services.
 
-I have made the solution light, it could have more error handlers and transaction handling.
+NOTE: I have made the solution light, it could have more error handlers and transaction handling.
 
 Null checks as conditions for further processing is also not _production material_, but this is just a PoC.
 
