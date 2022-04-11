@@ -5,7 +5,7 @@ Mikael Andersson Wigander <mikael.andersson.wigander@pm.me>
 :experimental:
 :autofit-options:
 :imagesdir: ./images
-:sourcedir: src/main/
+:sourcedir: /src/main/
 :source-highlighter: coderay
 
 My explanation of my solution on your technical backend test.
