@@ -5,7 +5,7 @@ Mikael Andersson Wigander <mikael.andersson.wigander@pm.me>
 :experimental:
 :autofit-options:
 :imagesdir: ./images
-:sourcedir: src/main/
+:sourcedir: src/main
 :source-highlighter: coderay
 :repo: https://raw.githubusercontent.com/hakuseki/technical-test-backend/camel
 ifdef::env-github[]
@@ -15,7 +15,7 @@ ifdef::env-github[]
 :caution-caption: :fire:
 :warning-caption: :warning:
 :imagesdir: ./images
-:sourcedir: https://raw.githubusercontent.com/hakuseki/technical-test-backend/camel/src/main/
+:sourcedir: https://raw.githubusercontent.com/hakuseki/technical-test-backend/camel/src/main
 endif::[]
 
 My explanation of my solution on your technical backend test.
@@ -36,7 +36,7 @@ For an explaination of the requests, please view the file `rest.http`.
 [source]
 .rest.http
 ----
-include::{repo}/rest.http[]
+include::rest.http[]
 ----
 
 <<<
@@ -49,7 +49,7 @@ The request is defined and starts in the file `WalletRestRoute.java`.
 [source,java,linenums]
 .WalletRestRoute.java
 ----
-include::{sourcedir}java/com/playtomic/tests/wallet/routes/WalletRestRoute.java[tags=WalletRestRoute]
+include::{sourcedir}/java/com/playtomic/tests/wallet/routes/WalletRestRoute.java[tags=WalletRestRoute]
 ----
 <.> This is the configuration of the routing information for the REST.
 <.> Here's the Swagger api documentation part.
@@ -65,7 +65,7 @@ a `json` structure which is sent along to the next endpoint.
 [source,java,linenums]
 .WalletRoutes.java
 ----
-include::{sourcedir}java/com/playtomic/tests/wallet/routes/WalletRoutes.java[tags=wallet]
+include::{sourcedir}/java/com/playtomic/tests/wallet/routes/WalletRoutes.java[tags=wallet]
 ----
 <.> The payload is processed as a `WalletRequest` and the wallet ID is set as a header.
 <.> The payload/body is set to the SQL we'd like to be executed.
@@ -97,7 +97,7 @@ Here we have more steps to control and process.
 [source,java,linenums]
 .WalletRoutes.java
 ----
-include::{sourcedir}java/com/playtomic/tests/wallet/routes/WalletRoutes.java[tags=wallet-topup]
+include::{sourcedir}/java/com/playtomic/tests/wallet/routes/WalletRoutes.java[tags=wallet-topup]
 ----
 <.> Incoming payload is processed to retrieve the three parts.
 <.> Since we already have a route for getting the Wallet we use it.
