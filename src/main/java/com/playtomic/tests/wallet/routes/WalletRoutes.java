@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * The class WalletRoutes
  *
- * @author maw, (c) Compliance Solutions Strategies, 2022-04-09
+ * @author maw, 2022-04-09
  * @version 1.0
  */
 @Component

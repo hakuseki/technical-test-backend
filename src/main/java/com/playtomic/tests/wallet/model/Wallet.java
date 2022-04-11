@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 /**
  * The class Wallet
  *
- * @author maw, (c) Compliance Solutions Strategies, 2022-04-09
+ * @author maw, 2022-04-09
  * @version 1.0
  */
 @Entity(name = "wallet")

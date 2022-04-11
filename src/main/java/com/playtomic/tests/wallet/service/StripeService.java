@@ -21,12 +21,21 @@ import java.net.URI;
 @Service
 public class StripeService {
 
+    /**
+     * The Charges uri.
+     */
     @NonNull
     private final URI chargesUri;
 
+    /**
+     * The Refunds uri.
+     */
     @NonNull
     private final URI refundsUri;
 
+    /**
+     * The Rest template.
+     */
     @NonNull
     private final RestTemplate restTemplate;
 
@@ -75,6 +84,9 @@ public class StripeService {
         restTemplate.postForEntity(chargesUri.toString(), null, Object.class, paymentId);
     }
 
+    /**
+     * The type Charge request.
+     */
     @AllArgsConstructor
     private static class ChargeRequest {
 

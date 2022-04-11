@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 /**
  * The class WalletTopupRequest
  *
- * @author maw, (c) Compliance Solutions Strategies, 2022-04-10
+ * @author maw, 2022-04-10
  * @version 1.0
  */
 @Data

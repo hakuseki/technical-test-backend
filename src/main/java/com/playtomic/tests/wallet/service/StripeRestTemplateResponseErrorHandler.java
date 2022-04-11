@@ -6,10 +6,20 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.IOException;
 
+/**
+ * The type Stripe rest template response error handler.
+ */
 public class StripeRestTemplateResponseErrorHandler extends DefaultResponseErrorHandler {
 
+    /**
+     * Handle error.
+     *
+     * @param response   the response
+     * @param statusCode the status code
+     * @throws IOException the io exception
+     */
     @Override
-    protected void handleError(ClientHttpResponse response, HttpStatus statusCode) throws IOException {
+    protected void handleError(final ClientHttpResponse response, final HttpStatus statusCode) throws IOException {
         if (statusCode == HttpStatus.UNPROCESSABLE_ENTITY) {
             throw new StripeAmountTooSmallException();
         }

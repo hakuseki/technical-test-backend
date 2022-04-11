@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 /**
  * The class WalletRestRoute
  *
- * @author maw, (c) Compliance Solutions Strategies, 2022-04-08
+ * @author maw, 2022-04-08
  * @version 1.0
  */
 @Component
