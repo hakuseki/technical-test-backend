@@ -1,6 +1,6 @@
-= Solution explanation
-Mikael Andersso Wigander <mikael.andersson.wigander@pm.me>
-3.0, July 29, 2022: AsciiDoc article template
+= Technical Test Backend
+Mikael Andersson Wigander <mikael.andersson.wigander@pm.me>
+
 :icons: font
 :experimental:
 :autofit-options:
@@ -8,7 +8,7 @@ Mikael Andersso Wigander <mikael.andersson.wigander@pm.me>
 :sourcedir: src/main/
 :source-highlighter: coderay
 
-My explanation of my solution on your technical test.
+My explanation of my solution on your technical backend test.
 
 == Introduction
 
@@ -18,7 +18,7 @@ It is based on the Spring Boot template provided, but I decided to use my prefer
 This solution everything is based on communication between endpoints; a call to a REST endpoint with a payload that
 then queries a database and returns data to the caller, or calling other REST services.
 
-I have made the solution light, it could have more error handlers.
+I have made the solution light, it could have more error handlers and transaction handling.
 
 Null checks as conditions for further processing is also not _production material_, but this is just a PoC.
 
@@ -29,6 +29,7 @@ For an explaination of the requests, please view the file `rest.http`.
 include::rest.http[]
 ----
 
+<<<
 === Wallet service
 
 This solution is based on a REST interface where a request is sent to an endpoint,  this called `/wallet`.
