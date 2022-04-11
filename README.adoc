@@ -7,6 +7,15 @@ Mikael Andersson Wigander <mikael.andersson.wigander@pm.me>
 :imagesdir: ./images
 :sourcedir: src/main/
 :source-highlighter: coderay
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+:imagesdir: ./images
+:sourcedir: ./src/main/
+endif::[]
 
 My explanation of my solution on your technical backend test.
 
