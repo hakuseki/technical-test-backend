@@ -7,6 +7,7 @@ Mikael Andersson Wigander <mikael.andersson.wigander@pm.me>
 :imagesdir: ./images
 :sourcedir: src/main/
 :source-highlighter: coderay
+:repo: https://raw.githubusercontent.com/hakuseki/technical-test-backend/camel
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -35,7 +36,7 @@ For an explaination of the requests, please view the file `rest.http`.
 [source]
 .rest.http
 ----
-include::https://raw.githubusercontent.com/hakuseki/technical-test-backend/camel/rest.http[]
+include::{repo}/rest.http[]
 ----
 
 <<<
